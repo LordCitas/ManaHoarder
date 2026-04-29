@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ManaHoarder{% endblock %}
+
+{% block body %}
+<main class="ml-20 md:ml-64 pt-16 h-screen overflow-y-auto">
+    <div class="p-6">
+        <div class="max-w-3xl">
+            <h1 class="text-3xl md:text-4xl font-bold uppercase tracking-widest text-[#FF8C00] font-['Space_Grotesk']">ManaHoarder</h1>
+            <p class="mt-2 text-zinc-400">Guarda y gestiona listas de cartas de Magic. Por ahora usamos placeholders; más adelante integraremos una API para imágenes y datos en tiempo real.</p>
+
+            <div class="mt-6 flex gap-3 flex-wrap">
+                <a class="bg-[#FF8C00] text-black px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#ff9d26] transition-colors" href="{{ path('app_login') }}">Entrar</a>
+                <a class="border border-[#2A2A2A] px-4 py-2 text-xs font-bold uppercase tracking-widest text-zinc-300 hover:bg-zinc-800 transition-colors" href="{{ path('app_register') }}">Crear cuenta</a>
+                {% if app.user %}
+                    <a class="border border-[#2A2A2A] px-4 py-2 text-xs font-bold uppercase tracking-widest text-zinc-300 hover:bg-zinc-800 transition-colors" href="{{ path('deck_builder') }}">Ir al Builder</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,70 @@
+{#
+  Theme global para formularios Symfony (Twig Form Themes)
+  Estética: dark + naranja + Space Grotesk/Inter
+#}
+
+{% use 'form_div_layout.html.twig' %}
+
+{% block form_row %}
+  <div class="space-y-1">
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+    {{ form_help(form) }}
+  </div>
+{% endblock %}
+
+{% block form_label %}
+  {% if label is not same as(false) %}
+    {% set label_attr = label_attr|merge({
+      class: (label_attr.class|default('') ~ ' block text-[10px] font-bold uppercase tracking-widest text-zinc-500 font-[\'Space Grotesk\']')|trim
+    }) %}
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
+{% block form_widget_simple %}
+  {% set attr = attr|merge({
+    class: (attr.class|default('') ~ ' w-full bg-[#121212] border border-[#2A2A2A] py-3 px-3 text-xs font-[\'Space Grotesk\'] tracking-widest uppercase focus:border-[#FF8C00] outline-none')|trim
+  }) %}
+  {{ parent() }}
+{% endblock %}
+
+{% block textarea_widget %}
+  {% set attr = attr|merge({
+    class: (attr.class|default('') ~ ' w-full bg-[#121212] border border-[#2A2A2A] py-3 px-3 text-xs font-[\'Space Grotesk\'] tracking-widest focus:border-[#FF8C00] outline-none')|trim
+  }) %}
+  {{ parent() }}
+{% endblock %}
+
+{% block choice_widget_collapsed %}
+  {% set attr = attr|merge({
+    class: (attr.class|default('') ~ ' w-full bg-[#121212] border border-[#2A2A2A] h-11 px-3 text-xs font-[\'Space Grotesk\'] tracking-widest uppercase text-zinc-200 focus:border-[#FF8C00] outline-none')|trim
+  }) %}
+  {{ parent() }}
+{% endblock %}
+
+{% block checkbox_widget %}
+  {# Checkbox va con su propio layout; mantenemos tamaño y borde #}
+  {% set attr = attr|merge({
+    class: (attr.class|default('') ~ ' h-4 w-4 rounded border border-[#2A2A2A] bg-[#121212] text-[#FF8C00] focus:ring-0')|trim
+  }) %}
+  {{ parent() }}
+{% endblock %}
+
+{% block form_errors %}
+  {% if errors|length > 0 %}
+    <div class="text-xs text-red-200 space-y-1">
+      {% for error in errors %}
+        <div>{{ error.message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block form_help %}
+  {% if help is not empty %}
+    {% set help_attr = help_attr|merge({ class: (help_attr.class|default('') ~ ' text-xs text-zinc-500')|trim }) %}
+  {% endif %}
+  {{ parent() }}
+{% endblock %}

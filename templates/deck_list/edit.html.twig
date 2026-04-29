@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar lista - ManaHoarder{% endblock %}
+
+{% block body %}
+<main class="ml-20 md:ml-64 pt-16 h-screen overflow-y-auto">
+    <div class="p-6">
+        <div class="max-w-2xl">
+            <h1 class="text-2xl font-bold uppercase tracking-widest font-['Space_Grotesk']">Editar lista</h1>
+            <p class="mt-2 text-zinc-500 text-sm">Cambia el nombre de la lista.</p>
+
+            <div class="mt-6 border border-[#2A2A2A] bg-[#121212] p-6">
+                {{ form_start(form, { attr: { class: 'space-y-4' } }) }}
+                    {{ form_row(form.name) }}
+
+                    <div class="flex gap-2 flex-wrap">
+                        <button class="bg-[#FF8C00] text-black px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#ff9d26] transition-colors" type="submit">Guardar cambios</button>
+                        <a class="border border-[#2A2A2A] px-4 py-2 text-xs font-bold uppercase tracking-widest text-zinc-300 hover:bg-zinc-800 transition-colors" href="{{ path('deck_list_show', {id: deckList.id}) }}">Volver</a>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

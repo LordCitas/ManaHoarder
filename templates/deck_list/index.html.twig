@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis listas - ManaHoarder{% endblock %}
+
+{% block body %}
+<main class="ml-20 md:ml-64 pt-16 h-screen overflow-y-auto">
+    <div class="p-6 space-y-6">
+        <div class="flex items-end justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-bold uppercase tracking-widest font-['Space_Grotesk']">Mis listas</h1>
+                <p class="text-zinc-500 text-sm">Crea, edita y organiza tus mazos.</p>
+            </div>
+            <a class="bg-[#FF8C00] text-black px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#ff9d26] transition-colors" href="{{ path('deck_list_new') }}">+ Nueva lista</a>
+        </div>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="border border-[#2A2A2A] bg-zinc-900/40 px-4 py-3 text-sm">
+                    <span class="text-[#FF8C00] font-bold">{{ label|upper }}</span>
+                    <span class="text-zinc-200">{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% if lists is empty %}
+            <div class="border border-[#2A2A2A] bg-[#121212] p-6">
+                <p class="text-zinc-400">Aún no tienes listas.</p>
+                <a class="inline-block mt-3 bg-[#FF8C00] text-black px-4 py-2 text-xs font-bold uppercase tracking-widest" href="{{ path('deck_list_new') }}">Crear lista</a>
+            </div>
+        {% else %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                {% for list in lists %}
+                    <a class="block border border-[#2A2A2A] bg-[#121212] hover:border-[#FF8C00] transition-colors p-4" href="{{ path('deck_list_show', {id: list.id}) }}">
+                        <div class="text-zinc-100 font-bold uppercase tracking-tight">{{ list.name }}</div>
+                        <div class="mt-2 text-[11px] uppercase tracking-widest text-zinc-500 font-['Space_Grotesk']">
+                            {{ list.items|length }} cartas distintas · Actualizada {{ list.updatedAt|date('Y-m-d H:i') }}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
